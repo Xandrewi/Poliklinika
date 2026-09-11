@@ -1,0 +1,160 @@
+﻿<Window x:Class="Poliklinika.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Регистрация" Height="750" Width="651"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#B3E5FC">
+
+    <Grid Margin="0,0,-26,0">
+        <!-- Иконка больницы -->
+        <Image Source="/image 47.png" 
+               Width="80" Height="80" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" 
+               Margin="26,30,0,0"/>
+
+        <!-- Основная синяя карточка формы -->
+        <Border Background="#4DD0E1" 
+                CornerRadius="10" 
+                Margin="129,30,86,19">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- ЗАГОЛОВОК -->
+                <Border Grid.Row="0" Background="#00BCD4" Padding="20" CornerRadius="10,10,0,0">
+                    <TextBlock Text="ОКНО РЕГИСТРАЦИИ"
+                               FontSize="22" FontWeight="Bold" Foreground="White"
+                               HorizontalAlignment="Center"/>
+                </Border>
+
+                <!-- СКРОЛЛЕР С ПОЛЯМИ И КНОПКАМИ -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="30,20" Margin="21,35,21,0" Grid.RowSpan="2">
+
+                    <ScrollViewer.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Margin" Value="0,0,0,15"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="15,0"/>
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+
+                        <Style TargetType="PasswordBox">
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Margin" Value="0,0,0,15"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ScrollViewer.Resources>
+
+                    <StackPanel>
+                        <!-- Поля ввода (Текст убран, чтобы не попадал в БД) -->
+                        <TextBox x:Name="txtSurname" Tag="Фамилия"/>
+                        <TextBox x:Name="txtName" Tag="Имя"/>
+
+                        <!-- ИСПРАВЛЕНО: Удален TextChanged -->
+                        <TextBox x:Name="txtPatronymic" Tag="Отчество"/>
+
+                        <TextBox x:Name="txtAddress" Tag="Адрес"/>
+                        <TextBox x:Name="txtPhone" Tag="Телефон"/>
+                        <TextBox x:Name="txtEmail" Tag="Почта"/>
+                        <TextBox x:Name="txtLogin" Tag="Логин"/>
+                        <PasswordBox x:Name="txtPassword" Tag="Пароль" />
+
+                        <!-- Дата рождения -->
+                        <Grid Margin="0,5,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="📅" FontSize="24" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                            <DatePicker x:Name="dtpBirthDate" 
+                                        Grid.Column="1" 
+                                        Height="40" 
+                                        FontSize="14"
+                                        VerticalContentAlignment="Center"/>
+                        </Grid>
+
+                        <!-- Выбор пола -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,20">
+                            <TextBlock Text="М" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <RadioButton x:Name="rbMale" IsChecked="True" GroupName="Gender" Margin="0,0,20,0">
+                                <RadioButton.Template>
+                                    <ControlTemplate TargetType="RadioButton">
+                                        <Ellipse Width="25" Height="25" Fill="White" Stroke="#006064" StrokeThickness="2"/>
+                                    </ControlTemplate>
+                                </RadioButton.Template>
+                            </RadioButton>
+
+                            <TextBlock Text="Ж" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <RadioButton x:Name="rbFemale" GroupName="Gender">
+                                <RadioButton.Template>
+                                    <ControlTemplate TargetType="RadioButton">
+                                        <Ellipse Width="25" Height="25" Fill="White" Stroke="#006064" StrokeThickness="2"/>
+                                    </ControlTemplate>
+                                </RadioButton.Template>
+                            </RadioButton>
+                        </StackPanel>
+
+                        <!-- КНОПКИ -->
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="btnRegister" 
+                                    Grid.Column="0"
+                                    Content="ЗАРЕГИСТРИРОВАТЬСЯ"
+                                    Height="45" 
+                                    Margin="0,0,10,0"
+                                    FontSize="12" FontWeight="Bold" Foreground="White"
+                                    Click="btnRegister_Click">
+                                <Button.Background>
+                                    <SolidColorBrush Color="#0097A7"/>
+                                </Button.Background>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="22">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                            <Button x:Name="btnBack" 
+                                    Grid.Column="1"
+                                    Content="НАЗАД"
+                                    Height="45" 
+                                    Margin="10,0,0,0"
+                                    FontSize="12" FontWeight="Bold" Foreground="White"
+                                    Click="btnBack_Click">
+                                <Button.Background>
+                                    <SolidColorBrush Color="#006064"/>
+                                </Button.Background>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="22">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
